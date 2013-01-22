@@ -39,8 +39,27 @@ app.get('/:id', function(req, res) {
   });
 });
 
-app.post('/:id', function(req, res) {
-  saveCheckIn(req.params.id, Date.now(), function() {
+app.post('/', function(req, res) {
+  // Parse content.
+  var POST = req.body;
+  var jsonstring = POST.value;
+  // var readerId = POST.target; // could be used to figure out info about where checked in
+
+  var json = {};
+  var id = '';
+  try {
+    json = JSON.parse(jsonstring);
+    id = String(json.id);
+    console.log('received json post:');
+    console.log(JSON.stringify(json));
+  } catch(e) {
+    console.log("This is not json:");
+    console.log(jsonstring);
+    res.end();
+    return;
+  }
+  
+  saveCheckIn(id, Date.now(), function() {
     res.send('cool.');
   });
 });
