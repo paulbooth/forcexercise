@@ -30,7 +30,9 @@ app.configure('development', function(){
 });
 
 app.get('/', function(req, res) {
-  res.send('HEY THAT\'s NOT WHAT THIS IS FOR. GET BACK');
+  getAllCheckins(function(checkIns) {
+    res.json(checkIns);
+  })
 });
 
 app.get('/:id', function(req, res) {
@@ -88,6 +90,16 @@ function getCheckIns (id, callback) {
     collection.find({
       'id': id,
     }, function (err, cursor) {
+      cursor.toArray(function(err, items) {
+        callback(items);
+      });
+    });
+  });
+}
+
+function getAllCheckins(callback) {
+  db.collection('checkins', function (err, collection) {
+    collection.find({}, function (err, cursor) {
       cursor.toArray(function(err, items) {
         callback(items);
       });
