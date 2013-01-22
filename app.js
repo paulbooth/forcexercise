@@ -93,7 +93,7 @@ function getCheckIns (id, callback) {
     collection.find({
       'id': id,
     }, function (err, cursor) {
-      cursor.toArray(function(err, items) {
+      cursor.sort({time: -1}).toArray(function(err, items) {
         callback(items);
       });
     });
@@ -103,7 +103,7 @@ function getCheckIns (id, callback) {
 function getAllCheckins(callback) {
   db.collection('checkins', function (err, collection) {
     collection.find({}, function (err, cursor) {
-      cursor.toArray(function(err, items) {
+      cursor.sort({time: -1}).toArray(function(err, items) {
         callback(items);
       });
     });
