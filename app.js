@@ -45,6 +45,7 @@ app.get('/:id', function(req, res) {
 // what eimp hits
 app.post('/', function(req, res) {
   var id = req.body.value; // assume whole body is the ID
+  id = id.replace(/[\u0000-\u0010]/g, '')
   console.log('post found for ' + id);
   console.log(req.body);
   saveCheckIn(id, Date.now(), function() {
