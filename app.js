@@ -42,7 +42,7 @@ app.get('/:id', function(req, res) {
 // what eimp hits
 app.post('/', function(req, res) {
   var id = req.body.value; // assume whole body is the ID
-
+  console.log('post found for ' + id);
   saveCheckIn(id, Date.now(), function() {
     res.send('cool.');
   });
