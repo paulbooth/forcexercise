@@ -46,6 +46,7 @@ app.get('/:id', function(req, res) {
 app.post('/', function(req, res) {
   var id = req.body.value; // assume whole body is the ID
   console.log('post found for ' + id);
+  console.log(req.body);
   saveCheckIn(id, Date.now(), function() {
     res.send('cool.');
   });
