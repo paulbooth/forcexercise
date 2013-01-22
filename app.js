@@ -34,6 +34,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/:id', function(req, res) {
+  console.log('retrieving id ' + req.params.id);
   getCheckIns(req.params.id, function(checkIns) {
     res.json(checkIns);
   });
