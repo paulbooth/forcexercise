@@ -30,7 +30,7 @@ app.configure('development', function(){
 });
 
 app.get('/', function(req, res) {
-  res.send('hello world');
+  res.send('HEY THAT\'s NOT WHAT THIS IS FOR. GET BACK');
 });
 
 app.get('/:id', function(req, res) {
@@ -39,26 +39,10 @@ app.get('/:id', function(req, res) {
   });
 });
 
+// what eimp hits
 app.post('/', function(req, res) {
-  // Parse content.
-  var POST = req.body;
-  var jsonstring = POST.value;
-  // var readerId = POST.target; // could be used to figure out info about where checked in
+  var id = req.body.value; // assume whole body is the ID
 
-  var json = {};
-  var id = '';
-  try {
-    json = JSON.parse(jsonstring);
-    id = String(json.id);
-    console.log('received json post:');
-    console.log(JSON.stringify(json));
-  } catch(e) {
-    console.log("This is not json:");
-    console.log(jsonstring);
-    res.end();
-    return;
-  }
-  
   saveCheckIn(id, Date.now(), function() {
     res.send('cool.');
   });
