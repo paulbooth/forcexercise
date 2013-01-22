@@ -45,9 +45,10 @@ app.get('/:id', function(req, res) {
 // what eimp hits
 app.post('/', function(req, res) {
   var id = req.body.value; // assume whole body is the ID
-  id = id.replace(/[\u0000-\u0010]/g, '')
+  console.log('length: ' + id.length);
+  id = id.replace(/\u0010/g, '')
   console.log('post found for ' + id);
-  console.log(req.body);
+  console.log('length: ' + id.length);
   saveCheckIn(id, Date.now(), function() {
     res.send('cool.');
   });
@@ -76,10 +77,10 @@ Db.connect(app.get('dburl'), {}, function (err, _db) {
 
 
 
-function saveCheckIn (uid, checkInTime, callback) {
+function saveCheckIn (id, checkInTime, callback) {
   db.collection('checkins', function(err, collection) {
     collection.insert({
-      'id': uid,
+      'id': id,
       'time': checkInTime
     });
     callback();
