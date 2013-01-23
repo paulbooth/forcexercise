@@ -6,6 +6,7 @@ var MY_ID = '67005DBEE367';
 
 
 function check() {
+  console.log('checking');
   http.get('http://forcexercise.herokuapp.com/' + MY_ID, function(result) {
     var output = '';
     result.on('data', function (chunk) {
@@ -33,7 +34,11 @@ function check() {
         say('Something is wrong with the get command.');
       }
     });
-  });
+  }).on('error', function(e) {
+      console.log("oh no the get didn't work.");
+      say("Could not retrieve checkin history.");
+      minuteChecker.start();
+    });
 };
 
 // attempts to get the correct command for saying things.
@@ -83,3 +88,4 @@ var dailyChecker = new cronJob('00 05 06 * * *',
   true /* Start the job right now */,
   null /* Time zone of this job. */
 );
+check();
