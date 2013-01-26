@@ -4,9 +4,9 @@ var http = require('http'),
 
 var MY_ID = '67005DBEE367';
 
-
+console.log("starting up. " + (new Date()).toString() )
 function check() {
-  console.log('checking');
+  console.log('checking ' + (new Date()).toString());
   http.get('http://forcexercise.herokuapp.com/' + MY_ID, function(result) {
     var output = '';
     result.on('data', function (chunk) {
@@ -29,13 +29,16 @@ function check() {
         } else {
           // no data found
           say('No checkins found.');
+          console.log("No checkins found.")
         }
       } catch(e) {
         say('Something is wrong with the get command.');
+        console.log("Broken. Something wrong with ooutput.");
+        console.log(output);
       }
     });
   }).on('error', function(e) {
-      console.log("oh no the get didn't work.");
+      console.log("oh no the get didn't work. Error.");
       say("Could not retrieve checkin history.");
       minuteChecker.start();
     });
